@@ -1,0 +1,23 @@
+### Register
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+  "firstName": "sanghee",
+  "lastName": "lee",
+  "email": "dix@hotmail.com",
+  "password": "root1234",
+  "passwordConfirm": "root1234"
+}
+
+### Login
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+  "email": "one@hotmail.com",
+  "password": "root1234"
+}
+
+### Logout
+POST http://localhost:3000/api/logout
