@@ -7,8 +7,9 @@ import {
   NotFoundException,
   Post,
   Req,
-  Res, UseGuards,
-  UseInterceptors
+  Res,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
@@ -36,7 +37,8 @@ export class AuthController {
     }
 
     body.password = await bcrypt.hash(body.password, 12);
-    return this.userService.create(body);
+    const { roleId, ...data } = body;
+    return this.userService.create({ ...data, role: { id: roleId } });
   }
 
   @Post('login')

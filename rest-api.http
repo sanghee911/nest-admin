@@ -5,7 +5,8 @@ Content-Type: application/json
 {
   "firstName": "sanghee",
   "lastName": "lee",
-  "email": "dix@hotmail.com",
+  "email": "dixzzz4@hotmail.com",
+  "roleId": 2,
   "password": "root1234",
   "passwordConfirm": "root1234"
 }
@@ -23,7 +24,7 @@ Content-Type: application/json
 POST http://localhost:3000/api/logout
 
 ### Get all users
-GET http://localhost:3000/api/users?page=2
+GET http://localhost:3000/api/users?page=1
 Content-Type: application/json
 
 ### Create user
@@ -33,20 +34,65 @@ Content-Type: application/json
 {
   "lastName": "pink",
   "firstName": "pink",
-  "email": "pnk@gmail.com"
+  "email": "newuser4@gmail.com",
+  "roleId": 2
 }
 
 ### Get user
-GET http://localhost:3000/api/users/3
+GET http://localhost:3000/api/users/32
 Content-Type: application/json
 
 ### Update user
-PATCH http://localhost:3000/api/users/3
+PATCH http://localhost:3000/api/users/32
 Content-Type: application/json
 
 {
-  "email": "newemail444@hotmail.com"
+  "role_id": 3
 }
 
 ### Delete user
 DELETE http://localhost:3000/api/users/1
+
+### Create role
+POST http://localhost:3000/api/roles
+Content-Type: application/json
+
+{
+  "name": "root",
+  "permissions": [1, 2, 3]
+}
+
+### Get all roles
+GET http://localhost:3000/api/roles
+
+### Get role
+GET http://localhost:3000/api/roles/4
+
+### Update role
+PATCH http://localhost:3000/api/roles/4
+Content-Type: application/json
+
+{
+  "name": "root",
+  "permissions": [5,6]
+}
+
+### Delete role
+DELETE http://localhost:3000/api/roles/1
+
+### Get all permissions
+GET http://localhost:3000/api/permissions
+
+### Get permission
+GET http://localhost:3000/api/permissions/1
+
+### Update permission
+PATCH http://localhost:3000/api/permissions/1
+Content-Type: application/json
+
+{
+  "name": "editor"
+}
+
+### Delete permission
+DELETE http://localhost:3000/api/permissions/1

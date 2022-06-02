@@ -37,7 +37,7 @@ export class UserService {
   }
 
   async findOne(condition): Promise<User> {
-    return this.userRepo.findOne(condition);
+    return this.userRepo.findOne(condition, { relations: ['role'] });
   }
 
   async update(id: string, data): Promise<any> {

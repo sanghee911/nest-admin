@@ -2,12 +2,15 @@ import {
   BadRequestException,
   Body,
   ClassSerializerInterceptor,
-  Controller, Delete,
+  Controller,
+  Delete,
   Get,
-  Param, Patch,
-  Post, Query,
+  Param,
+  Patch,
+  Post,
+  Query,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './models/user.entity';
@@ -37,11 +40,12 @@ export class UserController {
       throw new BadRequestException('user exists');
     }
 
+    const { roleId, ...data } = body;
+
     return this.userService.create({
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
+      ...data,
       password,
+      role: { id: roleId },
     });
   }
 
@@ -56,7 +60,12 @@ export class UserController {
   @UseGuards(AuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   async update(@Param('id') id: string, @Body() body: UserUpdateDto) {
-    await this.userService.update(id, body);
+    const { roleId, ...data } = body;
+    await this.userService.update(id, {
+      ...data,
+      role: { id: roleId },
+    });
+
     return this.userService.findOne(id);
   }
 
