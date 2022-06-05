@@ -26,8 +26,8 @@ export class UserController {
   @Get()
   @UseGuards(AuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
-  async all(@Query('page') page: string): Promise<User[]> {
-    return await this.userService.paginate(parseInt(page));
+  async all(@Query('page') page: string) {
+    return await this.userService.paginate(parseInt(page), ['role']);
   }
 
   @Post()
@@ -36,7 +36,7 @@ export class UserController {
   async create(@Body() body: UserCreateDto) {
     const password = await bcrypt.hash('1234', 12);
 
-    if (await this.userService.findOne({ email: body.email })) {
+    if (await this.userService.findOne({ email: body.email }, null)) {
       throw new BadRequestException('user exists');
     }
 
@@ -53,7 +53,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   async get(@Param('id') id: number) {
-    return this.userService.findOne(id);
+    return this.userService.findOne(id, ['role']);
   }
 
   @Patch(':id')
@@ -66,7 +66,7 @@ export class UserController {
       role: { id: roleId },
     });
 
-    return this.userService.findOne(id);
+    return this.userService.findOne(id, null);
   }
 
   @Delete(':id')

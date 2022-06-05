@@ -13,6 +13,12 @@ export class User {
   @Column()
   lastName: string;
 
+  @Column({
+    generatedType: 'STORED',
+    asExpression: "concat(`firstName`, ' ', `lastName`)",
+  })
+  fullName: string;
+
   @Column({ unique: true })
   email: string;
 

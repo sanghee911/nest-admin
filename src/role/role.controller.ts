@@ -17,7 +17,7 @@ export class RoleController {
 
   @Get()
   async all() {
-    return this.roleService.all();
+    return this.roleService.all(['permissions']);
   }
 
   @Post()
@@ -34,7 +34,7 @@ export class RoleController {
   @Get(':id')
   @UseGuards(AuthGuard)
   async get(@Param('id') id: number) {
-    return this.roleService.findOne(id);
+    return this.roleService.findOne(id, ['permissions']);
   }
 
   @Patch(':id')
@@ -45,7 +45,7 @@ export class RoleController {
     @Body('permissions') permissionIds: number[],
   ) {
     await this.roleService.update(id, { name });
-    const role = await this.roleService.findOne(id);
+    const role = await this.roleService.findOne(id, ['permissions']);
     return this.roleService.create({
       ...role,
       permissions: permissionIds.map((id) => ({ id })),
